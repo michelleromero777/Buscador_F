@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/css/index.css">
+    <title>Conversor de Notaciones</title>
 
-    <title>Document</title>
 </head>
 <body>
-    <label for="nombre">Nombre</label>
-    <input type="text" id="nombre" >
-
-    <label for="semestre">Semestre</label>
-    <input type="text" id="semestre" >
-
-    <label for="carrera">Carrera</label>
-    <input type="text" id="carrera" >
-
-    <label for="horas">Horas</label>
-    <input type="text" id="horas" >
-
-    <button id="btn_generar">Añadir</button>
-
-    <script src="controller/index.js"></script>
+    <div class="container">
+        <h1>Conversor de Notaciones</h1>
+        <br>
+        <input type="text" 
+               id="expresion" 
+               placeholder="Escribe una expresión (ej: (2+4)/(10*1))" 
+               value=""
+               autocomplete="off">
+        <button onclick="convertir()">Convertir</button>
+        <div id="resultado"></div>
+    </div>
+    
+    <!-- El bundle.js se cargará aquí -->
+    <script src="bundle.js"></script>
 </body>
 </html>
