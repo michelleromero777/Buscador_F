@@ -1,26 +1,37 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Rutas ajustadas para GitHub Pages -->
-    <link rel="stylesheet" href="/Conversor_notaciones/main.css">
-    <title>Conversor de Notaciones 🧮</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Comprobador de Palíndromos</title>
+  <link rel="stylesheet" href="./main.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Conversor de Notaciones</h1>
-        <br>
-        <input type="text" 
-               id="expresion" 
-               placeholder="Escribe una expresión (ej: (2+4)/(10*1))" 
-               value=""
-               autocomplete="off">
-        <button onclick="convertir()">Convertir</button>
-        <div id="resultado"></div>
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10">
+        <div class="card p-4">
+          <h1 class="mb-3">Comprobador de Palíndromos</h1>
+          <p class="mb-3 small helper">
+            Escribe una palabra u oración y el programa te dirá si es un palíndromo
+
+          <div class="mb-3">
+            <label for="inputText" class="form-label">Palabra u oración</label>
+            <textarea id="inputText" class="form-control" rows="3" placeholder="Ejemplo: Anita lava la tina"></textarea>
+          </div>
+
+          <div class="mb-3 d-flex gap-2">
+            <button id="checkBtn" class="btn btn-primary">Comprobar</button>
+            <button id="clearBtn" class="btn btn-outline-secondary">Limpiar</button>
+          </div>
+
+          <div id="resultCard" class="alert d-none" role="alert"></div>
+
+        </div>
+      </div>
     </div>
-    
-    <!-- Cargar el bundle generado por Webpack -->
-    <script src="/Conversor_notaciones/bundle.js"></script>
+  </div>
+
+  <script src="bundle.js"></script>
 </body>
 </html>

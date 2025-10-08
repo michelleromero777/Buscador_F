@@ -1,45 +1,39 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-// src/conversor-index.js
-import Conversor from './Conversor.js';
+// Importa las funciones de Palindromo.js
+import { preprocess, isPalindrome } from "./Palindromo.js";
 
-// Función para convertir y mostrar resultados
-function convertir() {
-    const expresion = document.getElementById('expresion').value;
-    const resultadoDiv = document.getElementById('resultado');
-    
-    try {
-        const resultado = Conversor.convertir(expresion);
-        
-        resultadoDiv.innerHTML = `
-            <div class="resultado">
-                <p><strong>Infija:</strong> ${resultado.infija} <span class="tiempo">(${resultado.tiempos.infija} ms)</span></p>
-                <p><strong>Postfija:</strong> ${resultado.postfija} <span class="tiempo">(${resultado.tiempos.postfija} ms)</span></p>
-                <p><strong>Prefija:</strong> ${resultado.prefija} <span class="tiempo">(${resultado.tiempos.prefija} ms)</span></p>
-                <p class="resultado-operacion">Resultado: ${resultado.resultado}</p>
-            </div>
-        `;
-    } catch (error) {
-        resultadoDiv.innerHTML = `
-            <div class="error">
-                <strong>Error:</strong> ${error.message}
-            </div>
-        `;
+document.addEventListener("DOMContentLoaded", () => {
+  const inputText = document.getElementById("inputText");
+  const checkBtn = document.getElementById("checkBtn");
+  const resultCard = document.getElementById("resultCard");
+  const clearBtn = document.getElementById("clearBtn");
+
+  checkBtn.addEventListener("click", () => {
+    const original = inputText.value.trim();
+    if (!original) {
+      resultCard.classList.remove("d-none", "alert-success");
+      resultCard.classList.add("alert-warning");
+      resultCard.innerHTML = "<strong>Ingrese una palabra u oración</strong>";
+      return;
     }
-}
 
-// Hacer la función disponible globalmente
-window.convertir = convertir;
+    const processed = preprocess(original);
+    const pal = isPalindrome(processed);
 
-// Convertir automáticamente al cargar
-document.addEventListener('DOMContentLoaded', function() {
-    convertir();
-    
-    // Agregar evento para convertir al presionar Enter
-    document.getElementById('expresion').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            convertir();
-        }
-    });
+    resultCard.classList.remove("d-none", "alert-success", "alert-danger");
+    if (pal) {
+      resultCard.classList.add("alert-success");
+      resultCard.innerHTML = `<strong class="result">Es un palíndromo</strong><br><small class="helper">Original:</small> ${original}`;
+    } else {
+      resultCard.classList.add("alert-danger");
+      resultCard.innerHTML = `<strong class="result">No es palíndromo. intenta de nuevo</strong><br><small class="helper">Original:</small> ${original}`;
+    }
+  });
+
+  clearBtn.addEventListener("click", () => {
+    inputText.value = "";
+    resultCard.classList.add("d-none");
+  });
 });
