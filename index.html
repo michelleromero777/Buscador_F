@@ -1,77 +1,37 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="main.css">
-    <title>Conversor de Notaciones 🧮</title>
-<style>
-    html, body {
-        height: 100%;
-        max-width: 800px;
-        margin: 50px auto;
-        padding: 20px;
-        font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-        background-color: #2ae989;
-    }
-
-    /* Contenedor principal centrado */
-    body {
-        display: flex;
-        justify-content: center; /* horizontal */
-        align-items: center;    /* vertical */
-    }
-
-    .container {
-        background-color: rgb(253, 255, 159);
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        text-align: center;
-        width: 300px; /* ancho fijo opcional */
-    }
-
-    input {
-        width: 90%;
-        padding: 10px;
-        margin-bottom: 15px;
-        border-radius: 5px;
-        border: 1px solid #f8dc5e;
-    }
-
-    button {
-        padding: 10px 20px;
-        border: none;
-        background-color: #4CAF50;
-        color: white;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    button:hover {
-        background-color: #45a049;
-    }
-
-    #resultado {
-        margin-top: 20px;
-        text-align: left;
-    }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Comprobador de Palíndromos</title>
+  <link rel="stylesheet" href="./main.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Conversor de Notaciones</h1>
-        <br>
-        <input type="text" 
-               id="expresion" 
-               placeholder="Escribe una expresión (ej: (2+4)/(10*1))" 
-               value=""
-               autocomplete="off">
-        <button onclick="convertir()">Convertir</button>
-        <div id="resultado"></div>
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10">
+        <div class="card p-4">
+          <h1 class="mb-3">Comprobador de Palíndromos</h1>
+          <p class="mb-3 small helper">
+            Escribe una palabra u oración y el programa te dirá si es un palíndromo
+
+          <div class="mb-3">
+            <label for="inputText" class="form-label">Palabra u oración</label>
+            <textarea id="inputText" class="form-control" rows="3" placeholder="Ejemplo: Anita lava la tina"></textarea>
+          </div>
+
+          <div class="mb-3 d-flex gap-2">
+            <button id="checkBtn" class="btn btn-primary">Comprobar</button>
+            <button id="clearBtn" class="btn btn-outline-secondary">Limpiar</button>
+          </div>
+
+          <div id="resultCard" class="alert d-none" role="alert"></div>
+
+        </div>
+      </div>
     </div>
-    
-    <!-- El bundle.js se cargará aquí -->
-    <script src="dist/bundle.js"></script>
+  </div>
+
+  <script src="dist/bundle.js"></script>
 </body>
 </html>
