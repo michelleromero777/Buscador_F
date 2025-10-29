@@ -1,39 +1,98 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-// Importa las funciones de Palindromo.js
-import { preprocess, isPalindrome } from "./Palindromo.js";
+import { highlightAndCount, replaceAll } from './buscar.js';
+//import '../public/css/buscar.css'; 
 
-document.addEventListener("DOMContentLoaded", () => {
-  const inputText = document.getElementById("inputText");
-  const checkBtn = document.getElementById("checkBtn");
-  const resultCard = document.getElementById("resultCard");
-  const clearBtn = document.getElementById("clearBtn");
+const searchInput = document.getElementById('searchInput');
+const replaceInput = document.getElementById('replaceInput');
+const searchBtn = document.getElementById('searchBtn');
+const replaceBtn = document.getElementById('replaceBtn');
+const textArea = document.getElementById('textArea');
+const countSpan = document.getElementById('count');
+const highlightedText = document.getElementById('highlightedText');
+const successMessage = document.getElementById('successMessage');
 
-  checkBtn.addEventListener("click", () => {
-    const original = inputText.value.trim();
-    if (!original) {
-      resultCard.classList.remove("d-none", "alert-success");
-      resultCard.classList.add("alert-warning");
-      resultCard.innerHTML = "<strong>Ingrese una palabra u oración</strong>";
-      return;
+let currentCount = 0;
+
+function showSuccessMessage(count) {
+    successMessage.innerHTML = `<strong>✓ Éxito:</strong> Se reemplazaron ${count} ocurrencia${count !== 1 ? 's' : ''}.`;
+    successMessage.className = 'success-message';
+    
+    setTimeout(() => {
+        successMessage.innerHTML = '';
+        successMessage.className = '';
+    }, 3000);
+}
+
+function performSearch() {
+    const searchTerm = searchInput.value;
+    const text = textArea.value;
+
+    if (!text.trim()) {
+        highlightedText.innerHTML = '<p style="color: #999;">Ingresa un texto para buscar</p>';
+        countSpan.textContent = '0';
+        replaceBtn.disabled = true;
+        currentCount = 0;
+        return;
     }
 
-    const processed = preprocess(original);
-    const pal = isPalindrome(processed);
+    const { highlighted, count } = highlightAndCount(text, searchTerm);
+    
+    currentCount = count;
+    countSpan.textContent = count;
+    highlightedText.innerHTML = highlighted || '<p style="color: #999;">No hay texto que mostrar</p>';
+    
+    replaceBtn.disabled = count === 0 || !searchInput.value.trim();
+}
 
-    resultCard.classList.remove("d-none", "alert-success", "alert-danger");
-    if (pal) {
-      resultCard.classList.add("alert-success");
-      resultCard.innerHTML = `<strong class="result">Es un palíndromo</strong><br><small class="helper">Original:</small> ${original}`;
-    } else {
-      resultCard.classList.add("alert-danger");
-      resultCard.innerHTML = `<strong class="result">No es palíndromo. intenta de nuevo</strong><br><small class="helper">Original:</small> ${original}`;
+function performReplace() {
+    const searchTerm = searchInput.value;
+    const replaceTerm = replaceInput.value;
+    const text = textArea.value;
+
+    if (!searchTerm.trim() || !text.trim()) {
+        return;
     }
-  });
 
-  clearBtn.addEventListener("click", () => {
-    inputText.value = "";
-    resultCard.classList.add("d-none");
-  });
+    const newText = replaceAll(text, searchTerm, replaceTerm);
+    const replacedCount = currentCount;
+    
+    textArea.value = newText;
+    
+    showSuccessMessage(replacedCount);
+    
+    searchInput.value = '';
+    replaceInput.value = '';
+    countSpan.textContent = '0';
+    highlightedText.innerHTML = newText || '<p style="color: #999;">No hay texto que mostrar</p>';
+    replaceBtn.disabled = true;
+    currentCount = 0;
+}
+
+searchBtn.addEventListener('click', performSearch);
+replaceBtn.addEventListener('click', performReplace);
+
+searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        performSearch();
+    }
+});
+
+replaceInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter' && !replaceBtn.disabled) {
+        performReplace();
+    }
+});
+
+textArea.addEventListener('input', () => {
+    if (searchInput.value.trim()) {
+        performSearch();
+    }
+});
+
+searchInput.addEventListener('input', () => {
+    if (textArea.value.trim()) {
+        performSearch();
+    }
 });

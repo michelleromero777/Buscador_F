@@ -1,35 +1,73 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Comprobador de Palíndromos</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buscador y Reemplazador</title>
   <link rel="stylesheet" href="./main.css">
 </head>
 <body>
-  <div class="container py-5">
-    <div class="row justify-content-center">
-      <div class="col-lg-8 col-md-10">
-        <div class="card p-4">
-          <h1 class="mb-3">Comprobador de Palíndromos</h1>
-          <p class="mb-3 small helper">
-            Escribe una palabra u oración y el programa te dirá si es un palíndromo
+  <div class="layout">
 
-          <div class="mb-3">
-            <label for="inputText" class="form-label">Palabra u oración</label>
-            <textarea id="inputText" class="form-control" rows="3" placeholder="Ejemplo: Anita lava la tina"></textarea>
+    <!-- SIDEBAR -->
+    <!-- <aside class="sidebar">
+      <h1 class="logo">🧠 TextoPro</h1>
+      <nav>
+        <ul>
+          <li class="active">Buscador</li>
+          <li>Historial</li>
+          <li>Configuración</li>
+        </ul>
+      </nav>
+    </aside> -->
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+      <header class="top-bar">
+        <h2>Buscador y Reemplazador de Palabras</h2>
+      </header>
+
+      <section class="tool-panel">
+
+        <!-- INPUTS -->
+        <div class="card controls">
+          <div class="field">
+            <label for="searchInput">Buscar</label>
+            <input id="searchInput" type="text" placeholder="Palabra a buscar..." />
+          </div>
+          <div class="field">
+            <label for="replaceInput">Reemplazar con</label>
+            <input id="replaceInput" type="text" placeholder="Nueva palabra..." />
           </div>
 
-          <div class="mb-3 d-flex gap-2">
-            <button id="checkBtn" class="btn btn-primary">Comprobar</button>
-            <button id="clearBtn" class="btn btn-outline-secondary">Limpiar</button>
+          <div class="button-row">
+            <button id="searchBtn" class="btn primary">Buscar</button>
+            <button id="replaceBtn" class="btn secondary" disabled>Reemplazar Todo</button>
           </div>
-
-          <div id="resultCard" class="alert d-none" role="alert"></div>
-
         </div>
-      </div>
-    </div>
+
+        <!-- TEXTO -->
+        <div class="card text-area">
+          <label for="textArea">Texto principal</label>
+          <textarea id="textArea" placeholder="Escribe o pega aquí tu texto..."></textarea>
+        </div>
+
+        <!-- RESULTADOS -->
+        <div class="card results">
+          <div class="stats">
+            <p><strong>Ocurrencias:</strong> <span id="count">0</span></p>
+            <div id="successMessage"></div>
+          </div>
+
+          <h3>Vista previa</h3>
+          <div id="highlightedText" class="highlight-box">
+            <p class="placeholder">Aquí se mostrará tu texto con las coincidencias resaltadas.</p>
+          </div>
+        </div>
+
+      </section>
+    </main>
+
   </div>
 
   <script src="dist/bundle.js"></script>
